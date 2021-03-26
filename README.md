@@ -19,7 +19,7 @@ node deploy
 
 This command will run a local instance of the API to interact with Rinkeby Blockchain utilising Infura.
 
-In order to deploy the contract, please execute in browser => @[http://localhost:3000/deploy]. This will return the address of contract being deployed.
+In order to deploy the contract, please execute in browser => http://localhost:3000/deploy. This will return the address of contract being deployed.
 
 Once you have the address, please provide it to the .env file.
 After this we can perform the followoing operations:
