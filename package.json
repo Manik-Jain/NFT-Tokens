@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "An API to interact with and manage NFT tokens",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,10 +11,13 @@
   "license": "ISC",
   "dependencies": {
     "@truffle/hdwallet-provider": "^1.1.1",
+    "axios": "^0.24.0",
     "bignumber.js": "^9.0.1",
     "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "nft.storage": "^5.2.0",
+    "node-fetch": "^3.1.0",
     "web3": "^1.3.0"
   }
 }

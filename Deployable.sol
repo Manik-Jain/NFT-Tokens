@@ -8,10 +8,12 @@ contract NFTokenDetails {
     
     string name;
     string symbol;
+    string uri;
     
-    constructor(string memory _name, string memory _symbol) {
+    constructor(string memory _name, string memory _symbol, string memory _uri) {
         name = _name;
         symbol = _symbol;
+        uri = _uri;
     }
 }
 
@@ -36,21 +38,22 @@ contract Deployable is TokenMetadata, Ownable {
     event TOKEN_MINTED(address to, uint tokenId);
     event TOKEN_AMOUNT_CREDITED_FROM(address from, uint tokenId);
     
-    modifier validDetails(string memory name, string memory symbol) {
-        require(bytes(name).length != 0, '[PANIC] : Token should have a Name');
-        require(bytes(symbol).length != 0, '[PANIC] : Token should have a symbol');
+    modifier validDetails(string memory name, string memory symbol, string memory uri) {
+        require(bytes(name).length != 0, '[ERROR] : Token should have a Name');
+        require(bytes(symbol).length != 0, '[ERROR] : Token should have a symbol');
+        require(bytes(uri).length != 0, '[ERROR] : Token should have a uri');
         _;
     }
     
-    constructor(string memory name, string memory symbol) validDetails(name, symbol) NFTokenDetails(name, symbol) {}
+    constructor(string memory name, string memory symbol, string memory uri) validDetails(name, symbol, uri) NFTokenDetails(name, symbol, uri) {}
     
     function mint() public payable returns(uint) {
         require(msg.value > 0, '[ALERT] : Each token is worth some value');
         (uint tokenId, bool success) = _mintTo(msg.sender);
         require(success, '[ALERT] : Token minting procedure has failed');
-        TOKEN_MINTED(msg.sender, tokenId);
+        emit TOKEN_MINTED(msg.sender, tokenId);
         payable(address(this)).transfer(msg.value);
-        TOKEN_AMOUNT_CREDITED_FROM(msg.sender, tokenId);
+        emit TOKEN_AMOUNT_CREDITED_FROM(msg.sender, tokenId);
         return tokenId;
     }
     
@@ -71,7 +74,5 @@ contract Deployable is TokenMetadata, Ownable {
         return address(this).balance;
     }
     
-    receive() payable external {
-        
-    }
+    receive() payable external {}
 }
