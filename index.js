@@ -52,6 +52,6 @@ app.get('/details/:tokenId', async(req, res) => {
     res.send({'Details' : details})
 })
 
-app.listen(3000, () => {
-    console.log('App listening on 3000');
+app.listen(3001, () => {
+    console.log('App listening on 3001');
 })
